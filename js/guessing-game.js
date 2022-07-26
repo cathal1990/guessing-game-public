@@ -15,7 +15,9 @@ const submitButton = document.getElementById('submit-button');
 const playAgainButton = document.getElementById('Play-Again-button');
 const hintButton = document.getElementById('Hint-button');
 const ul = document.getElementById('prev-guess-list');
+const li = document.getElementsByTagName('li');
 const body = document.getElementById('main-content');
+let liIndex = 0;
 let wonCalled = false;
 let guessCounter = 5;
 let randomNumber = Math.floor(Math.random() * (100 - 1) + 1);
@@ -60,19 +62,25 @@ function guessCheck(guess) {
 }
 
 function prevGuessAdd(guess) {
-    const li = document.createElement('li');
-    li.appendChild(document.createTextNode(guess));
-    ul.appendChild(li);
+    li[liIndex].innerHTML = guess;
+    liIndex += 1;
+    // const li = document.createElement('li');
+    // li.appendChild(document.createTextNode(guess));
+    // ul.appendChild(li);
 }
 
 function playAgain() {
     randomNumber = Math.floor(Math.random() * (100 - 1) + 1);
     guessCounter = 5;
-    ul.innerHTML = '';
     remainingGuessText.innerHTML = 'Guess the number between 1-100! </br> 5 guesses remaining!'
     hintText.innerHTML = '';
     body.style.background = 'linear-gradient(to top, #4286f4, #373B44)';
     wonCalled = false;
+    liIndex = 0;
+
+    [...li].forEach((val) => {
+        val.innerHTML = '---';
+    })
 }
 
 function generateHint() {
